@@ -1,0 +1,2 @@
+main-class: App
+class-path: bin/
