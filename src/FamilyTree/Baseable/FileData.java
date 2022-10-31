@@ -44,9 +44,9 @@ public class FileData extends ListData {
 
         for (int i = 0; i < contents.size(); i++) {
             Node n = new Node(parse(i));
-            if (((n.getWho().getFullName() != "N/A") &&
-                (n.getToWhom().getFullName() != "N/A"))||
-                (n.getRe() != Node.Type.undefined)) {
+            if (
+                ((n.getWho().getFullName() != "N/A") && (n.getToWhom().getFullName() != "N/A"))
+                || (n.getRe() != Node.Type.undefined)) {
                     add(n);
             }
         }

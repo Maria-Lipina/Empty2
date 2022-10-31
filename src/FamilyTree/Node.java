@@ -56,38 +56,29 @@ public class Node {
         this.toWhom = new Person();
     }
 
-    public Node(String[] fileData) { //TODO: Как бы скрыть его от случайного пользователя?
-
-        // TODO: Как будет время, переделать switch в обратный порядок и без break. И по одной строке для каждого кейса, потому что DRY. не забыть о маленьком if на длину массива больше 5
+    public Node(String[] fileData) { //TODO: Как бы скрыть его от пользователя?
 
         this.who = new Person();
         this.re = Type.undefined;
         this.toWhom = new Person();
-        switch (fileData.length) {
+
+        int len = fileData.length;
+        if (len>5) {
+            len = 5;
+        }
+
+        switch (len) {
+            case 5: 
+            who.setS(Sex.translate(fileData[4]));
+            case 4:
+            toWhom.setFullName(fileData[3]);
+            case 3:
+            re = Type.translate(fileData[2]);
+            case 2:
+            who.setS(Sex.translate(fileData[1]));
             case 1:
             who.setFullName(fileData[0]);
-            case 2:
-            who.setFullName(fileData[0]);
-            who.setS(Sex.translate(fileData[1]));
-                break;
-            case 3:
-            who.setFullName(fileData[0]);
-            who.setS(Sex.translate(fileData[1]));
-            re = Type.translate(fileData[2]);
-                break;
-            case 4:
-            who.setFullName(fileData[0]);
-            who.setS(Sex.translate(fileData[1]));
-            re = Type.translate(fileData[2]);
-            toWhom.setFullName(fileData[3]);
-                break;
-            default:
-            who.setFullName(fileData[0]);
-            who.setS(Sex.translate(fileData[1]));
-            re = Type.translate(fileData[2]);
-            toWhom.setFullName(fileData[3]);
-            who.setS(Sex.translate(fileData[4]));
-                break;
+            break;
         }
     }
 
