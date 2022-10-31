@@ -1,19 +1,21 @@
-package FamilyTree.Baseable; //можно ли в даве так поиграться с пакетами, чтобы защищенный класс в основном пакете был так же виден в подпакетах? Джава - это пакет с пакетами, о да
+package FamilyTree.Baseable; 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import FamilyTree.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.nio.file.StandardOpenOption;
 
 
 public class FileData extends ListData {
 
-    private BufferedReader fr;
-    private ArrayList<String> contents;
+    
+    private Path file;
+    public ArrayList<String> contents = new ArrayList<>(); //change to private
     private String template;
 
     // ******
@@ -27,17 +29,20 @@ public class FileData extends ListData {
 
     private void load (String filePath) {
         try{
-            this.fr = new BufferedReader(new FileReader(filePath, StandardCharsets.UTF_8));
-            this.contents = (ArrayList<String>)fr.lines().collect(Collectors.toList());
-            this.fr.close();
+            this.file = Paths.get(filePath);
+            this.contents = (ArrayList<String>)Files.readAllLines(file);
             }
             catch (IOException e) {
                 this.contents.add("Файл отсутствует или имеет некорректный формат");
             }
     }
 
-    private String[] parse(int lineNo) { // Change to private
+    private String[] parse(int lineNo) {
         return Pattern.compile(this.template).split(this.contents.get(lineNo));
+    }
+
+    private void addToBase(Node n) {
+        super.add(n);
     }
 
     private void prepareData() {
@@ -47,9 +52,31 @@ public class FileData extends ListData {
             if (
                 ((n.getWho().getFullName() != "N/A") && (n.getToWhom().getFullName() != "N/A"))
                 || (n.getRe() != Node.Type.undefined)) {
-                    add(n);
+                    addToBase(n);
             }
         }
 
     }
+
+    // @Override
+    public void add(Node n) {
+        
+        super.add(n);
+
+        String data = String.format("<%s | %s | %s | %s | %s>", 
+        n.getWho().getFullName(), n.getWho().getS(), 
+        n.getRe(), 
+        n.getToWhom().getFullName(), n.getToWhom().getS()
+        );
+        this.contents.add(data);
+        try {
+            Files.writeString(file, data+"\n", StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
+
+
+    
 }
