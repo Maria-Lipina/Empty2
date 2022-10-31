@@ -73,7 +73,7 @@ public class Node {
             case 4:
             toWhom.setFullName(fileData[3]);
             case 3:
-            re = Type.translate(fileData[2]);
+            this.re = Type.translate(fileData[2]);
             case 2:
             who.setS(Sex.translate(fileData[1]));
             case 1:
@@ -107,9 +107,16 @@ public class Node {
         this.toWhom = toWhom;
     }
 
-
     public String toString() {
         return String.format("<%s | %s | %s>", who.getFullName(), re, toWhom.getFullName());
+    }
+
+    public String toFileString() { //как бы скрыть от пользователя?
+        return String.format("<%s | %s | %s | %s | %s>", 
+        this.getWho().getFullName(), this.getWho().getS(), 
+        this.getRe(), 
+        this.getToWhom().getFullName(), this.getToWhom().getS()
+        );
     }
 
 }

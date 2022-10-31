@@ -28,6 +28,11 @@ public class ListData implements Baseable<Node> {
     }
 
     @Override
+    public int getInd(Node n) {
+        return this.base.indexOf(n);    
+    }
+
+    @Override
     public void change(Node n, Node m) {
         this.base.set(this.base.indexOf(n), m);
     }

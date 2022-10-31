@@ -9,37 +9,11 @@ public class App {
         FileData fd = new FileData("D:\\IT\\Java\\FamilyTree2.0\\Source1.txt", "\\s\\|\\s");
 
         for (int i = 0; i < fd.getSize(); i++) {
-            System.out.println(fd.get(i).toString());
+            System.out.println(fd.get(i).toFileString());
         }
 
-        Person v = new Person("Vasya", "м");
-        Person d = new Person("Даня", "м");
-        Node test = new Node(v, Type.brother, d);
-
-        // String data = String.format("<%s | %s | %s | %s | %s>", 
-        // test.getWho().getFullName(), test.getWho().getS(), 
-        // test.getRe(), 
-        // test.getToWhom().getFullName(), test.getToWhom().getS()
-        // );
-
-        // System.out.println(test.toString());
-        // System.out.println(data);
-
-        fd.add(test);
-        System.out.println("------");
-        System.out.println(fd.getSize());
-        for (int i = 0; i < fd.getSize(); i++) {
-            System.out.println(fd.get(i).toString());
-        }
-        
-        System.out.println("------Цикл для содержания файла");
-        for (String string : fd.contents) {
-            System.out.println(string);
-        }
-
-    //     for (int i = 0; i < fd.getSize(); i++) {
-    //         System.out.println(fd.get(i).toString());
-    //     }
+        Node test = fd.get(0);
+        System.out.println(test.getRe());
     }
 }
 

@@ -6,6 +6,7 @@ public interface Baseable<E> {
 
     void add(E ob);
     void remove(E ob);
+    int getInd(E ob);
     E get(int index);
     void change(E obOld, E obNew);
     int getSize();
