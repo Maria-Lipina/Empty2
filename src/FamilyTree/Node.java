@@ -32,6 +32,28 @@ public class Node {
             }
             return undefined;
         }
+
+        public static String translate(Type sys) {
+            switch (sys) { 
+                case husband:
+                    return "муж";
+                case wife:
+                    return "жена";
+                case mother:
+                    return "мать";
+                case father:
+                    return "отец";
+                case son:
+                    return "сын";
+                case daughter:
+                    return "дочь";
+                case brother:
+                    return "брат";
+                case sister:
+                    return "сестра";
+            }
+            return "N/A";
+        }
     }
 
     Person who;
@@ -69,7 +91,7 @@ public class Node {
 
         switch (len) {
             case 5: 
-            who.setS(Sex.translate(fileData[4]));
+            toWhom.setS(Sex.translate(fileData[4]));
             case 4:
             toWhom.setFullName(fileData[3]);
             case 3:
@@ -112,10 +134,10 @@ public class Node {
     }
 
     public String toFileString() { //как бы скрыть от пользователя?
-        return String.format("<%s | %s | %s | %s | %s>", 
-        this.getWho().getFullName(), this.getWho().getS(), 
-        this.getRe(), 
-        this.getToWhom().getFullName(), this.getToWhom().getS()
+        return String.format("%s | %s | %s | %s | %s", 
+        this.getWho().getFullName(), Sex.translate(this.getWho().getS()), 
+        Type.translate(this.getRe()), 
+        this.getToWhom().getFullName(), Sex.translate(this.getToWhom().getS())
         );
     }
 

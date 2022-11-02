@@ -15,8 +15,16 @@ public class Person {
           case "м": return Sex.male;
       }
       return Sex.na;
-    } 
     }
+    
+    protected static String translate(Sex sys) {
+      switch (sys) {
+        case female: return "ж";
+        case male: return "м";
+      }
+      return "N/A";
+    }
+  }
 
     
     private String fullName;
@@ -58,7 +66,7 @@ public class Person {
     }
 
     public String toString() {
-      return String.format("<%s - %s", this.fullName, this.s);
+      return String.format("%s - %s", this.fullName, this.s);
   }
 
 }

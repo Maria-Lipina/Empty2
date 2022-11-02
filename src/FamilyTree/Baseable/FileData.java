@@ -84,8 +84,8 @@ public class FileData extends ListData {
 
     public void remove(Node n) {
         int index = getInd(n);
-        super.remove(n);
         contents.remove(index);
+        super.remove(n);
         try {
             Files.write(file, contents);
         } catch (IOException e) {
